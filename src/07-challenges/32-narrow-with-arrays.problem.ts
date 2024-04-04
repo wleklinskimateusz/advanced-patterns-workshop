@@ -5,9 +5,11 @@ interface Fruit {
   price: number;
 }
 
-export const wrapFruit = (fruits: unknown[]) => {
-  const getFruit = (name: unknown) => {
-    return fruits.find((fruit) => fruit.name === name);
+export const wrapFruit = <const TFruit extends Fruit>(fruits: TFruit[]) => {
+  const getFruit = <TName extends TFruit["name"]>(name: TName) => {
+    const result = fruits.find((fruit) => fruit.name === name);
+    if (!result) throw new Error("Fruit not found");
+    return result as Extract<TFruit, { name: TName }>;
   };
 
   return {

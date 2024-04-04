@@ -1,5 +1,16 @@
 import React from "react";
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "custom-element": {
+        children: string;
+        isProp: boolean;
+      };
+    }
+  }
+}
+
 /**
  * How do we add a new base element to React's JSX?
  *
@@ -10,4 +21,4 @@ import React from "react";
  * to check out React's type definitions.
  */
 
-const element = <custom-element>hello world</custom-element>;
+const element = <custom-element isProp>hello world</custom-element>;

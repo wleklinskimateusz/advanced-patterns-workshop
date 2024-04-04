@@ -1,11 +1,11 @@
 import { expect, it } from "vitest";
 import { z } from "zod";
 
-const makeZodSafeFunction = (
-  schema: unknown,
-  func: (arg: unknown) => unknown
+const makeZodSafeFunction = <TShape, TResult>(
+  schema: z.ZodSchema<TShape>,
+  func: (arg: TShape) => TResult
 ) => {
-  return (arg: unknown) => {
+  return (arg: TShape) => {
     const result = schema.parse(arg);
     return func(result);
   };
